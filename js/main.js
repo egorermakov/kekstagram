@@ -79,5 +79,4 @@ const generatePhotos = () => {
   return photos;
 };
 
-let gallery = generatePhotos();
-console.log(gallery);
+generatePhotos();
