@@ -44,19 +44,17 @@ const getRandomComments = () => {
   const comments = [];
   for (let i = 1; i <= getRandomPositiveInteger(1, 10); i++) {
     comments.push(createComment(commentsCount));
-    commentsCount += 1;
+    commentsCount++;
   }
   return comments;
 };
 
 const createPhoto = (photoId) => ({
-  return: {
-    id: photoId,
-    url: `photos/${  photoId  }.jpg`,
-    description: PHOTO_DESCRIPTIONS[getRandomPositiveInteger(0, PHOTO_DESCRIPTIONS.length - 1)],
-    likes: getRandomPositiveInteger(15, 200),
-    comments: getRandomComments(),
-  }
+  id: photoId,
+  url: `photos/${  photoId  }.jpg`,
+  description: PHOTO_DESCRIPTIONS[getRandomPositiveInteger(0, PHOTO_DESCRIPTIONS.length - 1)],
+  likes: getRandomPositiveInteger(15, 200),
+  comments: getRandomComments(),
 });
 
 const generatePhotos = () => {
