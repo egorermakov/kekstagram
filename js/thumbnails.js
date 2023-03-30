@@ -1,25 +1,23 @@
-import { generatePhotos } from './data.js';
+import { createPhotoData } from './data.js';
 
-const list = document.querySelector('.pictures');
+const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
 const picture = pictureTemplate.querySelector('.picture');
-const photos = generatePhotos();
-
-
+const picturesListData = createPhotoData();
 
 const addThumbnails = () => {
 
-  const listFragment = document.createDocumentFragment();
+  const picturesListFragment = document.createDocumentFragment();
 
-  photos.forEach((photo) => {
-    const thumbnail = picture.cloneNode(true);
-    thumbnail.querySelector('.picture__img').src = photo.url;
-    thumbnail.querySelector('.picture__likes').textContent = photo.likes;
-    thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
-    listFragment.appendChild(thumbnail);
+  picturesListData.forEach((element) => {
+    const pictureThumbnail = picture.cloneNode(true);
+    pictureThumbnail.querySelector('.picture__img').src = element.url;
+    pictureThumbnail.querySelector('.picture__likes').textContent = element.likes;
+    pictureThumbnail.querySelector('.picture__comments').textContent = element.comments.length;
+    picturesListFragment.appendChild(pictureThumbnail);
   });
 
-  list.appendChild(listFragment);
+  picturesList.appendChild(picturesListFragment);
 
 };
 
