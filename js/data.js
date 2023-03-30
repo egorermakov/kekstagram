@@ -22,7 +22,7 @@ const NAMES = [
   'Вашингтон',
 ];
 
-const MESSAGES = [
+const DESCRIPTIONS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -36,7 +36,7 @@ let commentsCount = 1;
 const createComment = (commentId) => ({
   id: commentId,
   avatar: `img/avatar-${  getRandomPositiveInteger(1, 6)  }.svg`,
-  message: MESSAGES[getRandomPositiveInteger(0, MESSAGES.length - 1)],
+  message: DESCRIPTIONS[getRandomPositiveInteger(0, DESCRIPTIONS.length - 1)],
   name: NAMES[getRandomPositiveInteger(0, NAMES.length - 1)],
 });
 
@@ -57,7 +57,7 @@ const createPhoto = (photoId) => ({
   comments: getRandomComments(),
 });
 
-const generatePhotos = () => {
+const createPhotoData = () => {
   const photos = [];
   for (let i = 1; i <= NUMBER_OF_PHOTOS; i++) {
     photos.push(createPhoto(i));
@@ -65,4 +65,4 @@ const generatePhotos = () => {
   return photos;
 };
 
-export {generatePhotos};
+export {createPhotoData};
