@@ -57,7 +57,7 @@ const createPhoto = (photoId) => ({
   comments: getRandomComments(),
 });
 
-const createPhotoData = () => {
+const createPictures = () => {
   const photos = [];
   for (let i = 1; i <= NUMBER_OF_PHOTOS; i++) {
     photos.push(createPhoto(i));
@@ -65,4 +65,4 @@ const createPhotoData = () => {
   return photos;
 };
 
-export {createPhotoData};
+export {createPictures};
