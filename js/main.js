@@ -1,3 +1,2 @@
-import { addThumbnails } from './thumbnails.js';
-
-addThumbnails();
+import './thumbnails.js';
+import './form.js';

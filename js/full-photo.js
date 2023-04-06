@@ -1,4 +1,4 @@
-import { isEscapeKey } from "./util.js";
+import {isEscapeKey} from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCloseElement = bigPicture.querySelector('.big-picture__cancel')
@@ -7,6 +7,13 @@ const commentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const body = document.querySelector('body');
 
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeBigPictureModal();
+  }
+};
+
 const getCommentsList = (element) => {
   while (commentsList.firstChild) {
     commentsList.removeChild(commentsList.firstChild);
@@ -14,7 +21,7 @@ const getCommentsList = (element) => {
 
   const comments =  element.comments;
 
-  comments.forEach(comment => {
+  comments.forEach((comment) => {
     const commentItem = document.createElement('li');
     commentItem.classList.add('social__comment');
     commentsList.appendChild(commentItem);
@@ -31,7 +38,7 @@ const getCommentsList = (element) => {
   });
 };
 
-const openBigPicture = (element) => {
+const openBigPictureModal = (element) => {
   bigPicture.classList.remove('hidden');
 
   bigPicture.querySelector('.big-picture__img img').src = element.url;
@@ -45,19 +52,18 @@ const openBigPicture = (element) => {
   body.classList.add('modal-open');
 };
 
-const closeBigPicture = () => {
+const closeBigPictureModal = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+  document.removeEventListener('keydown',onDocumentKeydown);
 };
 
 bigPictureCloseElement.addEventListener ('click', () => {
-  closeBigPicture();
+  closeBigPictureModal();
 });
 
-body.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt)) {
-    closeBigPicture();
-  }
+document.addEventListener('keydown', (evt) => {
+  onDocumentKeydown(evt);
 });
 
-export {openBigPicture};
+export {openBigPictureModal};

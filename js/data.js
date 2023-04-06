@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger} from './util.js'
+import {getRandomPositiveInteger} from './util.js';
 
 const NUMBER_OF_PHOTOS = 25;
 
