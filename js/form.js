@@ -1,4 +1,5 @@
-import {isEscapeKey} from './util.js';
+import { isEscapeKey } from './util.js';
+import { addScale, removeScale } from './scale.js';
 
 const fileField = document.querySelector('#upload-file');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -22,6 +23,7 @@ const onPopupEscKeydown = (evt) => {
 function showModal() {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
+  addScale();
 
   document.addEventListener('keydown', (evt) => {
     onPopupEscKeydown(evt);
@@ -40,6 +42,7 @@ function hideModal() {
   });
 
   form.reset();
+  removeScale();
 }
 
 const pristine = new Pristine(form, {
