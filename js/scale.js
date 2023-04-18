@@ -1,13 +1,14 @@
 const SCALE_STEP = 25;
 const SCALE_MAX = 100;
 const SCALE_MIN = 25;
+const DEFAULT_SCALE_PERCENT = 100;
 
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
 const previewImg = document.querySelector('.img-upload__preview img');
 
-scaleControlValue.value = SCALE_MAX;
+scaleControlValue.value = `${DEFAULT_SCALE_PERCENT}%`;
 
 const changeScale = (evt) => {
   evt.preventDefault();
@@ -18,7 +19,7 @@ const changeScale = (evt) => {
   } else {
     percent = scaleValue !== SCALE_MAX ? scaleValue + SCALE_STEP : scaleValue;
   }
-  scaleControlValue.value = percent;
+  scaleControlValue.value = `${percent}%`;
   previewImg.style.transform = `scale(${percent / 100})`;
 };
 
