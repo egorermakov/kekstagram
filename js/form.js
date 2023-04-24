@@ -1,6 +1,7 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, showSuccess, showError } from './util.js';
 import { addScale, removeScale } from './scale.js';
 import { addEffects, removeEffects } from './filters.js';
+import { sendData } from './api.js';
 
 const fileField = document.querySelector('#upload-file');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -9,6 +10,7 @@ const cancelButton = document.querySelector('#upload-cancel');
 const form = document.querySelector('.img-upload__form');
 const hashtagField = document.querySelector('.text__hashtags');
 const descriptionField = document.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
 
 const re = /^#[A-za-zА-Яа-яЁё0-9]{1,19}$/;
 
@@ -78,15 +80,20 @@ const validateTags = (value) => {
   return true;
 };
 
-pristine.addValidator(
-  hashtagField,
-  validateTags,
-  'Неправильно заполнены хэштеги'
-);
+const addValidatorPristine = () => {
+  pristine.addValidator(
+    hashtagField,
+    validateTags,
+    'Неправильно заполнены хэштеги'
+  );
+};
 
-fileField.addEventListener('change', () => {
-  showModal();
-});
+const renderForm = () => {
+  fileField.addEventListener('change', () => {
+    showModal();
+  });
+  addValidatorPristine();
+};
 
 cancelButton.addEventListener('click', () => {
   hideModal();
@@ -96,13 +103,40 @@ hashtagField.addEventListener('focus', (evt) =>{
   evt.stopPropagation();
 });
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикуется...';
+};
 
-  const isValid = pristine.validate();
-  if (isValid) {
-    console.log('Можно отправлять');
-  } else {
-    console.log('Форма невалидна');
-  }
-});
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          showSuccess();
+          unblockSubmitButton();
+        },
+        () => {
+          showError();
+          unblockSubmitButton();
+          hideModal();
+        },
+        new FormData(evt.target)
+      );
+    }
+  });
+};
+
+setUserFormSubmit(hideModal);
+
+export {renderForm};
