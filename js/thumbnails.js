@@ -4,6 +4,12 @@ const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const renderThumbnails = (thumbnails) => {
+
+  const picturesArray = document.querySelectorAll('.picture');
+  picturesArray.forEach((elem) => {
+    elem.remove();
+  });
+
   const picturesListFragment = document.createDocumentFragment();
 
   thumbnails.forEach((picture) => {

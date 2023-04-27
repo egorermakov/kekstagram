@@ -1,7 +1,7 @@
-import { isEscapeKey, showSuccess, showError } from './util.js';
-import { addScale, removeScale } from './scale.js';
-import { addEffects, removeEffects } from './filters.js';
-import { sendData } from './api.js';
+import {isEscapeKey, showSuccess, showError} from './util.js';
+import {addScale, removeScale} from './scale.js';
+import {addEffects, removeEffects} from './effects.js';
+import {sendData} from './api.js';
 
 const fileField = document.querySelector('#upload-file');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -105,7 +105,7 @@ hashtagField.addEventListener('focus', (evt) =>{
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = 'Публикуется...';
+  submitButton.textContent = 'Публикую...';
 };
 
 const unblockSubmitButton = () => {
@@ -119,6 +119,8 @@ const setUserFormSubmit = (onSuccess) => {
 
     const isValid = pristine.validate();
     if (isValid) {
+      const formData = new FormData(evt.target);
+
       blockSubmitButton();
       sendData(
         () => {
@@ -131,7 +133,7 @@ const setUserFormSubmit = (onSuccess) => {
           unblockSubmitButton();
           hideModal();
         },
-        new FormData(evt.target)
+        formData
       );
     }
   });

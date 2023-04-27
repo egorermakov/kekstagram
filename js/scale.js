@@ -47,4 +47,4 @@ const removeScale = () => {
   setDefaultScale();
 };
 
-export { addScale, removeScale };
+export {addScale, removeScale};

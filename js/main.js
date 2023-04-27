@@ -1,7 +1,7 @@
-import {getDataError} from './util.js';
-import {renderThumbnails} from './thumbnails.js';
-import {renderForm} from './form.js';
-import {getData} from './api.js';
+import { getDataError } from './util.js';
+import { renderForm } from './form.js';
+import { getData } from './api.js';
+import { renderFilters } from './filters.js';
 
-getData(renderThumbnails, getDataError);
+getData(renderFilters, getDataError);
 renderForm();
